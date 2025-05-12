@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page - Agência de Tráfego</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Mais clientes, mais vendas. Comece com Tráfego Pago.</h2>
+    <form id="leadForm">
+      <input type="text" name="nome" placeholder="Seu nome" required />
+      <input type="email" name="email" placeholder="Seu e-mail" required />
+      <input type="tel" name="telefone" placeholder="Telefone (opcional)" />
+      <input type="text" name="agencia" placeholder="Nome da sua empresa/agência" />
+      <button type="submit">Quero aumentar meu faturamento</button>
+    </form>
+  </div>
+
+  <!-- MOVEMOS O SCRIPT PARA O FINAL -->
+  <script>
+    const form = document.getElementById('leadForm');
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = {
+          nome: form.nome.value,
+          email: form.email.value,
+          telefone: form.telefone.value,
+          agencia: form.agencia.value
+        };
+
+        fetch('https://script.google.com/macros/s/AKfycbwkECFUkmOJh-ey5qw3HrosOsyeKv6uR7JGOKhz4gt3D6a6iFNVORdJ7qyLEzi4c43b/exec', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(() => {
+          alert('Obrigado! Seus dados foram enviados com sucesso.');
+          form.reset();
+        }).catch(() => {
+          alert('Erro ao enviar. Tente novamente.');
+        });
+      });
+    }
+  </script>
+</body>
+</html>
